@@ -1,5 +1,7 @@
 package collection
 
+import kotlin.math.sign
+
 class DoublyLinkList<E>(node: Node<E>? = null) : AminList<E> {
     class Node<E>(var previous: Node<E>?, val data: E, var next: Node<E>?)
 
@@ -120,6 +122,16 @@ class DoublyLinkList<E>(node: Node<E>? = null) : AminList<E> {
         node.next = node.previous
         node.previous = temp
         revertR(nextNode)
+    }
+
+    private fun hasLoop() {
+        var forwardCursor = head
+        var backwardCursor = tail
+        var count = 0
+        while (count < 2 || (forwardCursor != null && backwardCursor != null)) {
+            if (forwardCursor==backwardCursor) count++
+            forwardCursor = forwardCursor?.next
+        }
     }
 }
 
